@@ -1,0 +1,25 @@
+T0=5;
+Ts1=0.002;
+Ts2=0.02;     %perioade de esantionare
+Ts3=0.2;
+W1=2*pi*Ts1/T0;
+W2=2*pi*Ts2/T0;      %pulsatii normate
+W3=2*pi*Ts3/T0;
+N1=20/Ts1;
+N2=20/Ts2;          %numar de esantioane(4 perioade)
+N3=20/Ts3;
+n1=0:N1-1;
+n2=0:N2-1;
+n3=0:N3-1;
+s1=1.5*sawtooth(W1*n1,1)-0.5;
+s2=1.5*sawtooth(W2*n2,1)-0.5;
+s3=1.5*sawtooth(W3*n3,1)-0.5;
+subplot(2,2,1);
+stem(n1,s1);
+grid;
+subplot(2,2,2);
+stem(n2,s2);
+grid;
+subplot(2,2,3);
+stem(n3,s3);
+grid;

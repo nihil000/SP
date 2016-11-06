@@ -1,0 +1,25 @@
+T0=4;
+Ts1=0.002;
+Ts2=0.02;
+Ts3=0.2;
+W1=2*pi*Ts1/T0;
+W2=2*pi*Ts2/T0;
+W3=2*pi*Ts3/T0;
+N1=12/Ts1;
+N2=12/Ts2;              %numar de esantioane(3 perioade)
+N3=12/Ts3;
+n1=0:N1-1;
+n2=0:N2-1;
+n3=0:N3-1;
+s1=1.5*sin(W1*n1);
+s2=1.5*sin(W2*n2);
+s3=1.5*sin(W3*n3);
+subplot(2,2,1);
+stem(n1,abs(s1));       %folosind modulul sinusului, alternanta negativa
+grid;                   %devine pozitiva, realizandu-se astfel semnalul
+subplot(2,2,2);         %sinusoidal dubla alternanta
+stem(n2,abs(s2));
+grid;
+subplot(2,2,3);
+stem(n3,abs(s3));
+grid;

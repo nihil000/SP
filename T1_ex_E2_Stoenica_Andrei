@@ -1,0 +1,12 @@
+counter = 0;
+n = input('Introduceti dimensiunea vectorului');
+a=randn(1,n)
+for k=1:1:n 
+    if a(k)<0 
+            disp(a(k));
+            counter = 1; 
+    end
+end
+if(counter == 0)
+    disp('Nu s-a gasit niciun numar negativ!');
+end

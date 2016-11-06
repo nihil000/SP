@@ -1,0 +1,25 @@
+T0=2; %perioada semnalului [s]
+Ts1=0.002; %prima perioada de esantionare [s]
+Ts2=0.02; %a doua perioada de esantionare [s]
+Ts3=0.2; %a treia perioada de esantionare [s]
+W1=2*pi*Ts1/T0;
+W2=2*pi*Ts2/T0;   %pulsatiile normate
+W3=2*pi*Ts3/T0;
+N1=10/Ts1; %pentru a putea vizualiza 5 perioade
+N2=10/Ts2; %numerele de esantioane
+N3=10/Ts3;
+n1=0:N1-1;
+n2=0:N2-1;
+n3=0:N3-1;
+s1=0.75*square(W1*n1,25)-0.25;
+s2=0.75*square(W2*n2,25)-0.25;
+s3=0.75*square(W3*n3,25)-0.25;
+subplot(2,2,1);
+stem(n1,s1);
+grid;
+subplot(2,2,2);
+stem(n2,s2);
+grid;
+subplot(2,2,3);
+stem(n3,s3);
+grid;

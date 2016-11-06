@@ -1,0 +1,6 @@
+% a)  Vectorul b trebuie sa aiba lungimea 21
+a=0:0.1:2;
+b=ones(21,1);
+a*b %Se realizeaza adunarea fiecarui element al vectorului a
+% b)
+b*a

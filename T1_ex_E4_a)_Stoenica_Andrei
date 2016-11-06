@@ -1,0 +1,13 @@
+% a)
+z=zeros(1,21);
+z(6)=1;
+z(12)=1;
+z(18)=1;
+n=0:20;
+m=-5:15;
+subplot(2,1,1);
+stem(n,z);
+grid;
+subplot(2,1,2);
+stem(m,z);
+grid;

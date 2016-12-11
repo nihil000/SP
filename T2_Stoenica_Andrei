@@ -1,0 +1,51 @@
+% Imi cer scuze, dar nu mi-am dat seama cum as putea sa sa rezolv pentru D = 24, P = 40,
+% cum durata ar reprezenta jumatate din "baza" unui impuls triunghiular, iar perioada
+% distanta dintre varfurile a doua impulsuri triunghiulare consecutive, 
+% in cazul de fata mi se pare ca s-ar intersecta impulsurile consecutive,
+% astfel, aparent, s-ar modifica durata semnalului la D = 20,
+% cel putin din ce am observat incercand sa schitez pe hartie semnalul,
+% dar am modificat P = 48 si am rezolvat tema astfel, intrucat nu mi-am dat seama
+% cum ar arata semnalul pentru conditiile date. In schimb, programul pe care l-am
+% scris functioneaza,
+% calculeaza coeficientii, reconstituie bine semnalul original si afiseaza
+% spectrul de amplitudini. Pentru rezolvarea problemei am considerat un semnal 
+% triunghiular simetric de amplitudine 1.
+C = zeros(1,51); % vector al coeficientilor seriei Fourier complexe
+T = 48; % perioada
+W = pi/24;  % pulsatia
+Amp = zeros(1,51);  % vector al amplitudinilor
+f1 = @(t) -t/24;    %cele doua ramuri ale functiei semnalului triunghiular
+f2 = @(t) t/24;     %folosite pentru integrare
+i = integral(f1,-24,0) + integral(f2,0,24); % integrala se distribuie pe fiecare ramura
+C(1) = i/T;   % componenta continua
+Amp(1)=C(1);  % amplitudinea componentei continue
+for j=1:1:50
+    g1 = @(t) -t/24 .* exp(-1i .* j .* W .* t);
+    g2 = @(t) t/24 .* exp(-1i .* j .* W .* t);
+    C(j+1) = integral(g1,-24,0)/T + integral(g2,0,24)/T;   % calculul coeficientilor
+    Amp(j+1) = 2*abs(C(j+1));     % calculul amplitudinilor din coeficientii SFC
+end
+k = 0:0.1:100;
+sgn(1:1001) = i/T;
+for n=1:1:50
+    sgn(1:1001) = sgn(1:1001) + 2*C(n+1)*exp(1i * n * W * k);     % vector pentru reconstructia semnalului
+end
+s =(1+sawtooth(k*W,0.5))/2; % semnalul triunghiular original
+subplot(1,2,1);
+plot(k,sgn,'ro',k,s);
+title('Semnalul original (albastru), reconstructia (cercuri rosii)');
+grid;
+subplot(1,2,2);
+stem(0:1:50,Amp);
+title('Spectrul de amplitudini');
+grid;
+% Utilizand seriile Fourier, putem descompune un semnal oarecare
+% intr-o suma infinita de sinusoide. Adunand un numar suficient de mare de 
+% sinusoide din descompunerea in serie Fourier a functiei (semnalului)
+% putem obtine o reconstituire aproximativa a semnalului original.
+% Teoretic, pentru a obtine functia initiala, este nevoie sa adunam
+% o infinitate de sinusoide, insa in practica se pot folosi primele N
+% componente, pentru un N suficient de mare ca sa se obtina un semnal cat
+% mai apropat de original. Astfel, seriile Fourier pot fi utilizate in multe 
+% aplicatii legate de semnale, pentru rezolvare de circuite in regin nesinusoidal,
+% pentru analiza semnalului vocal, fisiere audio (mp3) sau imagini digitale (jpg).
